@@ -27,20 +27,23 @@ namespace RestaurantReviews.Web.Controllers
             }
 
             ViewBag.NameSortParm = sort == "name_asc" ? "name_desc" : "name_asc";
-            ViewBag.TopRatingSortParm = sort == "TopRating" ? "rating_top" : "TopRating";
-            ViewBag.Top3RatingSortParm = sort == "Top3Rating" ? "rating_top3" : "Top3Rating";
+            ViewBag.TopRatingSortParm = sort == "rating_top" ? "rating_worst" : "rating_top";
+            ViewBag.Top3RatingSortParm = sort == "rating_top3" ? "default" : "rating_top3";
 
 
             switch (sort)
             {
                 case "name_desc":
-                   View( Sort1.SortDescending((List<Restaurant>)(da.ShowRestaurants())));
+                   View(Sort1.SortDescending((List<Restaurant>)(da.ShowRestaurants())));
                     break;
                 case "name_asc":
                     View( Sort1.SortAscending((List<Restaurant>)(da.ShowRestaurants())));
                     break;
                 case "rating_top":
                     View(Sort1.SortTopRating((List<Restaurant>)(da.ShowRestaurants())));
+                    break;
+                case "rating_worst":
+                    View(Sort1.SortWorstRating((List<Restaurant>)(da.ShowRestaurants())));
                     break;
                 case "rating_top3":
                     View(Sort1.SortTop3Rating((List<Restaurant>)(da.ShowRestaurants())));

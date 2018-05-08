@@ -29,6 +29,12 @@ namespace RestaurantReviews.Library
             return restaurants.OrderByDescending(r => r.CalculateAverageRating()).ToList();
         }
 
+        public static IEnumerable<Restaurant> SortWorstRating(List<Restaurant> restaurants)
+        {
+
+            return restaurants.OrderBy(r => r.CalculateAverageRating()).ToList();
+        }
+
         public static IEnumerable<Restaurant> SortTop3Rating(List<Restaurant> restaurants)
         {
             var top3 = SortTopRating(restaurants).ToList();
