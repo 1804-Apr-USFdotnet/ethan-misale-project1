@@ -10,8 +10,10 @@ namespace RestaurantReviews.Models
     public class Review
     {
         public int Id { get; set; }
+        [Required]
         [Range (1,5)]
         public double Rating { get; set; }
+        [Required]
         public string Comment { get; set; }
         public int RestaurantId { get; set; }
     }

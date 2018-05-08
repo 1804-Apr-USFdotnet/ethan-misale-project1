@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
+
 
 
         
@@ -15,17 +17,18 @@ namespace RestaurantReviews.Models
     public class Restaurant:IReviewable
     {
         public int Id { get; set; }
-
+        [Required]
         public string  Name { get; set; }
-        
+        [Required]
         public string Address { get; set; }
 
         public List<Review> Reviews { get; set; }
-        
+        [Required]
+        [DataType(DataType.PhoneNumber)]
         public string PhoneNumber { get; set; }
-       
+        [Required]
         public string City { get; set; }
-     
+        [Required]
         public string State { get; set; }
         [JsonIgnore]
         public double AvgRating { get; set; }
