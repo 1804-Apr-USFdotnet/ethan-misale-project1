@@ -146,13 +146,13 @@ namespace RestaurantReviews.Web.Controllers
         {
             try
             {
-                if (ModelState.IsValid)
-                {
+                //if (ModelState.IsValid)
+               // {
                     da.DeleteRestaurant(id);
 
                     return RedirectToAction("Index");
-                }
-                return View();
+               // }
+                //return View();
             }
             catch
             {

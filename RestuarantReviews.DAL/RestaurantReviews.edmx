@@ -19,13 +19,13 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Address" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="PhoneNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="City" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="State" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="AvgRating" Type="float" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="Review">
           <Key>
@@ -36,8 +36,10 @@
           <Property Name="RestaurantId" Type="int" Nullable="false" />
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
-        <Association Name="FK_Review_Restaurant">
-          <End Role="Restaurant" Type="Self.Restaurant" Multiplicity="1" />
+        <Association Name="FK_Review_Restaurant1">
+          <End Role="Restaurant" Type="Self.Restaurant" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Review" Type="Self.Review" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Restaurant">
@@ -83,7 +85,7 @@
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Restaurant" EntityType="Self.Restaurant" Schema="Restaurant" store:Type="Tables" />
           <EntitySet Name="Review" EntityType="Self.Review" Schema="Restaurant" store:Type="Tables" />
-          <AssociationSet Name="FK_Review_Restaurant" Association="Self.FK_Review_Restaurant">
+          <AssociationSet Name="FK_Review_Restaurant1" Association="Self.FK_Review_Restaurant1">
             <End Role="Restaurant" EntitySet="Restaurant" />
             <End Role="Review" EntitySet="Review" />
           </AssociationSet>
