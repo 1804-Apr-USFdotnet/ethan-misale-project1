@@ -15,7 +15,7 @@ namespace RestuarantReviews.DAL
     {
         RestaurantDBEntities db = new RestaurantDBEntities();
             
-        public IEnumerable<Restaurant> ShowRestaurants()
+        public  IEnumerable<Restaurant> ShowRestaurants()
         {
             return db.Restaurants.ToList();
         }
@@ -41,6 +41,11 @@ namespace RestuarantReviews.DAL
 
         }
 
+        public void UpdateRestaurant(Restaurant restaurant)
+        {
+            db.Entry(restaurant).State = EntityState.Modified;
+            db.SaveChanges();
+        }
 
         public IEnumerable<Review> ShowReviews()
         {
@@ -53,6 +58,19 @@ namespace RestuarantReviews.DAL
             return review;
         }
 
+        public IEnumerable<Review> ShowReviewsByRestaurantId(int restId)
+        {
+            var reviews = db.Reviews.ToList();
+            List<Review> singleRest = new List<Review>();
+            foreach(Review rev in reviews)
+            {
+                if(rev.RestaurantId == restId)
+                {
+                    singleRest.Add(rev);
+                }
+            }
+            return singleRest;
+        }
 
         public void InsertReview(RestuarantReviews.DAL.Review review)
         {
@@ -67,13 +85,19 @@ namespace RestuarantReviews.DAL
             db.SaveChanges();
 
         }
-       
+
+        public void UpdateReview(Review review)
+        {
+            db.Entry(review).State = EntityState.Modified;
+            db.SaveChanges();
+        }
+
 
         public IEnumerable<Restaurant> SearchByPartialName(string name)
         {
             var part = name.Length;
             var rest = db.Restaurants.ToList();
-            var partname = rest.FindAll(x => x.Name.Substring(0, part).Equals(name));
+            var partname = rest.FindAll(x => x.Name.ToLower().Contains(name));
             return partname;
         }
 

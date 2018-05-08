@@ -21,6 +21,7 @@ namespace RestaurantReviews.Library
            foreach(Restaurant rest in show)
             {
                 var show1 = DataToLibraryRestaurant(rest);
+                show1.CalculateAverageRating();
                 test.Add(show1);
             }
 
@@ -32,7 +33,9 @@ namespace RestaurantReviews.Library
         {
            var search = crud.SearchByRestaurantID(id);
            var show =  DataToLibraryRestaurant(search);
-           return show;
+           show.CalculateAverageRating();
+
+            return show;
         }
 
         public void InsertRestaurant(RestaurantReviews.Models.Restaurant restaurant)
@@ -44,6 +47,13 @@ namespace RestaurantReviews.Library
         public void DeleteRestaurant(int id)
         {
            crud.DeleteRestaurant(id);
+        }
+
+        public void UpdateRestaurant(Models.Restaurant restaurant)
+        {
+            var rest = LibraryToDataRestaurant(restaurant);
+            crud.UpdateRestaurant(rest);
+
         }
 
         public IEnumerable<Models.Review> ShowReviews()
@@ -62,14 +72,26 @@ namespace RestaurantReviews.Library
         }
 
 
-        public Models.Review SearchByReviewtID(int id)
+        public Models.Review SearchByReviewID(int id)
         {
             var search = crud.SearchByReviewID(id);
             var show = DataToLibraryReview(search);
             return show;
         }
 
-        public void InsertRestaurant(RestaurantReviews.Models.Review review)
+        public IEnumerable<Models.Review> ShowReviewsByRestaurantId(int restId)
+        {
+            var show = crud.ShowReviewsByRestaurantId(restId);
+            var singleRest = new List<Models.Review>();
+            foreach (Review rev in show)
+            {
+                var show1 = DataToLibraryReview(rev);
+                singleRest.Add(show1);
+            }
+            return singleRest;
+        }
+
+        public void InsertReview(RestaurantReviews.Models.Review review)
         {
             var convert = LibraryToDataReview(review);
             crud.InsertReview(convert);
@@ -80,14 +102,22 @@ namespace RestaurantReviews.Library
             crud.DeleteReview(id);
         }
 
+        public void UpdateReview(Models.Review review)
+        {
+            var rev = LibraryToDataReview(review);
+            crud.UpdateReview(rev);
+
+        }
 
         public IEnumerable<Models.Restaurant> SearchByPartialName(string name)
         {
-            var part = crud.SearchByPartialName(name);
+            var nameLow = name.ToLower();
+            var part = crud.SearchByPartialName(nameLow);
             var test = new List<Models.Restaurant>();
             foreach (Restaurant rest in part)
             {
                 var show1 = DataToLibraryRestaurant(rest);
+                show1.CalculateAverageRating();
                 test.Add(show1);
             }
             return test;
@@ -96,11 +126,11 @@ namespace RestaurantReviews.Library
 
         public static Restaurant LibraryToDataRestaurant(RestaurantReviews.Models.Restaurant restaurant)
         {
-            var revs = new List<Review>();
-            foreach (Models.Review rev in restaurant.Reviews)
-            {
-                revs.Add(LibraryToDataReview(rev));
-            }
+            //var revs = new List<Review>();
+            //foreach (Models.Review rev in restaurant.Reviews)
+            //{
+            //    revs.Add(LibraryToDataReview(rev));
+            //}
             Restaurant rest = new Restaurant()
             {
                 Address = restaurant.Address,

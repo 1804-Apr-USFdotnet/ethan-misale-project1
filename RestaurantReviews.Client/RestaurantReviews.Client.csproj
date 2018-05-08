@@ -57,7 +57,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="Program.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -78,6 +80,10 @@
     <ProjectReference Include="..\RestaurantReviews.Models\RestaurantReviews.Models.csproj">
       <Project>{a91ea4ec-9a14-4c29-8967-0193830c1506}</Project>
       <Name>RestaurantReviews.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RestuarantReviews.DAL\RestuarantReviews.DAL.csproj">
+      <Project>{9a71e6db-fc08-4af9-ab15-2bac08a5ce38}</Project>
+      <Name>RestuarantReviews.DAL</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

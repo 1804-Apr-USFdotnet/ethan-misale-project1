@@ -30,19 +30,5 @@ namespace RestuarantReviews.DAL
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Review> Reviews { get; set; }
-
-        public double CalculateAverageRating()
-        {
-
-            AvgRating = 0;
-
-            foreach (var i in Reviews)
-            {
-                AvgRating += i.Rating;
-            }
-
-            return (double)(AvgRating /= Reviews.Count);
-
-        }
     }
 }
