@@ -8,7 +8,9 @@
 
 <p>
     @Html.ActionLink("Create New", "Create") |
-    @Html.ActionLink("Show Top 3 Rated Restaurants", "Index", new { sort = ViewBag.Top3RatingSortParm })
+    @Html.ActionLink("Show Top 3 Rated Restaurants", "Index", new { sort = ViewBag.Top3RatingSortParm }) |
+    @Html.ActionLink("Sort By Name A-Z/Z-A", "Index", new { sort = ViewBag.NameSortParm }) |
+    @Html.ActionLink("Show By Top Rated / Worst Rated Restaurants", "Index", new { sort = ViewBag.TopRatingSortParm })
 </p>
 <form asp-controller="Restaurant" asp-action="Index">
     <p>
@@ -19,7 +21,7 @@
 <table class="table">
     <tr>
         <th>
-            @Html.ActionLink("Name", "Index", new { sort = ViewBag.NameSortParm, SearchString = ViewBag.Search })
+            @Html.ActionLink("Name", "Index", new { SearchString = ViewBag.Search })
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Address)
@@ -34,7 +36,7 @@
             @Html.DisplayNameFor(model => model.State)
         </th>
         <th>
-            @Html.ActionLink("Average Rating", "Index", new { sort = ViewBag.TopRatingSortParm })
+            @Html.DisplayNameFor(model => model.AvgRating)
         </th>
         <th></th>
     </tr>
